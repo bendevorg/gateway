@@ -75,4 +75,4 @@ typings/
 .credentials/
 
 # Routes folder
-routes
+.routes
