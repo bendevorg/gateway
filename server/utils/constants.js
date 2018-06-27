@@ -2,8 +2,7 @@
  * All project constants
  * @module utils/constants
  */
-const fs = require('fs');
-const util = require('util');
+const logger = require('./logger');
 module.exports = {
   messages: {
     info: {
@@ -17,8 +16,10 @@ module.exports = {
   },
   routes: {
     options: {
-      onProxyRes: (proxyRes, req, res) => {
-
+      userResDecorator: (proxyRes, proxyResData, userReq, userRes) => {
+        proxyRes.data = proxyResData;
+        logger(proxyRes, userReq);
+        return proxyResData;
       }
     }
   }

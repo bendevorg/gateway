@@ -1,5 +1,5 @@
 const express = require('express');
-const proxy = require('http-proxy-middleware');
+const proxy = require('express-http-proxy');
 const fs = require('fs');
 const constants = require('../utils/constants');
 
@@ -16,7 +16,7 @@ if (fs.existsSync(routesPath)) {
 }
 
 routes.forEach(route => {
-  router.use(`/${route.name}`, proxy({ ...route.options, ...constants.routes.options }));
+  router.use(`/${route.name}`, proxy(route.path, { ...route.options, ...constants.routes.options }));
 });
 
 module.exports = router;
