@@ -1,0 +1,16 @@
+{ 
+  "development": {
+    "name": "neat",
+    "options": {
+      "target": "http://localhost:3340/api/",
+      "pathRewrite": { "^/neat": "" }
+    }
+  },
+  "production": {
+    "name": "neat",
+    "options": {
+      "target": "http://localhost:3340/api/",
+      "pathRewrite": { "^/neat": "" }
+    }
+  }
+}

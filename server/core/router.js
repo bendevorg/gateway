@@ -1,12 +1,22 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const proxy = require('http-proxy-middleware');
+const fs = require('fs');
+const constants = require('../utils/constants');
 
 const router = express.Router();
-router.use(bodyParser.json());
 
-//  Placeholder API
-router.get('/', (req, res) => {
-  res.status(200).json({ msg: 'Hi!' });
+const routesPath = process.cwd() + '/.routes';
+let routes = [];
+
+// Get our routes
+if (fs.existsSync(routesPath)) {
+  fs.readdirSync(routesPath).forEach(file => {
+    if (file.indexOf('.json') !== -1) routes.push(require(routesPath + '/' + file)[process.env.NODE_ENV]);
+  });
+}
+
+routes.forEach(route => {
+  router.use(`/${route.name}`, proxy({ ...route.options, ...constants.routes.options }));
 });
 
 module.exports = router;
