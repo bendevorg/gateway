@@ -1,11 +1,14 @@
+const request = require('request');
+const LOGGER_URL = process.env.LOGGER_URL;
+
 module.exports = async (res, req) => {
   res.date = Date.now();
 
   try {
-    res.data = JSON.stringify(JSON.parse(res.data.toString('utf8')));
+    res.data = JSON.parse(res.data.toString("utf8"));
   } catch (err) {
     //  In case the data is not a JSON we just transform it into a string
-    res.data = res.data.toString('utf8');
+    res.data = res.data.toString("utf8");
   }
   const log = {
     req: {
@@ -27,4 +30,5 @@ module.exports = async (res, req) => {
       data: res.data
     }
   };
+  request.post({ url: LOGGER_URL, json: log }, (err, httpResponse, html) => {});
 };
