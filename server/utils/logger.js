@@ -2,6 +2,10 @@ const request = require('request');
 const LOGGER_URL = process.env.LOGGER_URL;
 
 module.exports = async (res, req) => {
+  //  Ignore static calls
+  if (req.url.includes('static')) {
+    return;
+  }
   res.date = Date.now();
 
   try {
