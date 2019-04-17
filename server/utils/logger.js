@@ -5,10 +5,10 @@ module.exports = async (res, req) => {
   res.date = Date.now();
 
   try {
-    res.data = JSON.parse(res.data.toString("utf8"));
+    res.data = JSON.parse(res.data.toString('utf8'));
   } catch (err) {
     //  In case the data is not a JSON we just transform it into a string
-    res.data = res.data.toString("utf8");
+    res.data = res.data.toString('utf8');
   }
   const log = {
     req: {
