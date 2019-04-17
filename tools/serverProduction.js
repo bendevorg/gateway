@@ -10,7 +10,7 @@ const logger = require('./logger');
 
 const app = express();
 
-app.options('*', cors());
+app.options(true, cors());
 app.use(
   cors({
     origin: true,
